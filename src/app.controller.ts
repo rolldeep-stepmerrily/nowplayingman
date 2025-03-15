@@ -3,19 +3,19 @@ import { join } from 'path';
 
 import { Controller, Get } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { ApiExcludeController } from '@nestjs/swagger';
+import { ApiExcludeEndpoint, ApiOkResponse, ApiOperation } from '@nestjs/swagger';
 
-import { CustomHttpException, GLOBAL_ERRORS } from '@@exceptions';
+import { AppException, GLOBAL_ERRORS } from '@@exceptions';
 
-@ApiExcludeController()
 @Controller()
 export class AppController {
   constructor(private readonly configService: ConfigService) {}
 
+  @ApiExcludeEndpoint()
   @Get('changelog')
   async changelog(): Promise<string> {
     if (this.configService.getOrThrow('NODE_ENV') !== 'development') {
-      throw new CustomHttpException(GLOBAL_ERRORS.CHANGELOG_NOT_FOUND);
+      throw new AppException(GLOBAL_ERRORS.NOT_FOUND_RESOURCE);
     }
 
     const filePath = join(__dirname, '..', 'swagger', 'swagger-changelog.md');
@@ -64,5 +64,12 @@ export class AppController {
         </body>
       </html>
     `;
+  }
+
+  @ApiOperation({ summary: 'health check' })
+  @ApiOkResponse({ description: 'ok', type: String })
+  @Get()
+  healthCheck(): string {
+    return 'ok';
   }
 }

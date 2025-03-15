@@ -1,0 +1,12 @@
+services:
+  db:
+    image: mysql:8.0
+    volumes:
+      - ./db/data:/var/lib/mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: nowplayingman
+      MYSQL_DATABASE: nowplayingman
+      MYSQL_USER: nowplayingman
+      MYSQL_PASSWORD: nowplayingman

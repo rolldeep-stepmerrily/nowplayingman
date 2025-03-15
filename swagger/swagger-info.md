@@ -1,8 +1,8 @@
-# Restful API Server Documentation
+# Nowplayingman Documentation
 
 ### 📚 버전 정보
 
-현재 버전: 1.0.0
+현재 버전: 0.0.1
 
 자세한 버전 이력은 [Changelog](/changelog)를 참조하세요.
 

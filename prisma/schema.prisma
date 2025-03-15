@@ -3,15 +3,44 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
-model User {
+model Artist {
   id        Int       @id @default(autoincrement())
-  email     String    @unique
-  password  String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
-  deletedAt DateTime?
+  name      String    @db.VarChar(64)
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  musics Music[]
+
+  @@map("artist")
+}
+
+model Music {
+  id        Int       @id @default(autoincrement())
+  artistId  Int       @map("artist_id")
+  name      String    @db.VarChar(64)
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  artist    Artist    @relation(fields: [artistId], references: [id])
+  histories History[]
+
+  @@map("music")
+}
+
+model History {
+  id        Int       @id @default(autoincrement())
+  musicId   Int       @map("music_id")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  music Music @relation(fields: [musicId], references: [id])
+
+  @@map("history")
 }

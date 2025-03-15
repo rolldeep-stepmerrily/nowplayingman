@@ -1,7 +1,7 @@
 export default {
   apps: [
     {
-      name: 'rolldeep-nestjs-starter',
+      name: 'nowplayingman',
       script: 'dist/main.js',
       instances: 'max',
       exec_mode: 'cluster',

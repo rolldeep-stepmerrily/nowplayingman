@@ -8,5 +8,11 @@ declare namespace NodeJS {
     ADMIN_PASSWORD: string;
     GUEST_NAME: string;
     GUEST_PASSWORD: string;
+    THREADS_APP_ID: number;
+    THREADS_REDIRECT_URI: string;
+    THREADS_SCOPE: string;
+    THREADS_APP_SECRET: string;
+    THREADS_USER_ID: number;
+    THREADS_ACCESS_TOKEN: string;
   }
 }
